@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>贡献墙</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+      background: linear-gradient(135deg, #fef8f9, #fff8f0);
+      color: #333;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .logo {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 20px;
+      width: 100px;
+      height: 100px;
+      border-radius: 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    nav {
+      background-color: #ffffffcc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      height: 60px;
+      top: 0;
+      z-index: 100;
+      gap: 0.7em;
+    }
+    nav .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      margin-left: 0.7em;
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      object-fit: contain;
+    }
+    nav .logo:hover {
+      transform: scale(1.1);
+    }
+    nav a {
+      text-decoration: none;
+      color: #666;
+      font-weight: bold;
+      border-radius: 12px;
+      padding: 0.5em 1em;
+      transition: background 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #ffe4ec;
+      color: #d6006b;
+    }
+    nav .feedback-btn {
+      background-color: #d6006b;
+      color: white;
+      padding: 0.5em 1.2em;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    nav .feedback-btn:hover {
+      background-color: #ff1481;
+      color: white;
+      transform: translateY(-2px);
+    }
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 1em;
+    }
+    .header {
+      flex-shrink: 0;
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    .search-bar {
+      margin: 0.5em 0;
+    }
+    .search-bar input {
+      padding: 0.6em 1.2em;
+      font-size: 1em;
+      border-radius: 20px;
+      border: 2px solid #ffd8ec;
+      width: 50%;
+      max-width: 300px;
+      transition: all 0.3s;
+    }
+    .search-bar input:focus {
+      outline: none;
+      border-color: #d6006b;
+      box-shadow: 0 0 10px rgba(214, 0, 107, 0.1);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2em;
+      padding: 0 1em;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      align-items: stretch;
+    }
+    .card {
+      border-radius: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      padding: 1.2em;
+      box-sizing: border-box;
+      font-size: 0.95em;
+      line-height: 1.6;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: cardIn 0.3s ease-out forwards;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      will-change: transform, opacity;
+    }
+    .card.fadeOut {
+      animation: cardOut 0.3s ease-out forwards;
+    }
+    .card.student {
+      background: linear-gradient(135deg, #ffe1f0, #fff);
+      border-left: 4px solid #d6006b;
+    }
+    .card.parent {
+      background: linear-gradient(135deg, #e3f2ff, #fff);
+      border-left: 4px solid #0066cc;
+    }
+    @keyframes cardIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes cardOut {
+      to {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+    }
+    .subtitle {
+      font-size: 1.2em;
+      margin: 0.3em 0;
+      color: #888;
+      height: 1.5em;
+      opacity: 1;
+      transition: all 0.5s ease-in-out;
+      position: relative;
+    }
+    .subtitle.fade-out {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    .subtitle.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h1 {
+      color: #d6006b;
+      font-size: 2.2em;
+      margin: 0;
+    }
+    @media (max-height: 700px) {
+      nav {
+        padding: 0.5em;
+      }
+      nav a {
+        padding: 0.3em 0.8em;
+        font-size: 0.9em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+      .subtitle {
+        font-size: 1em;
+        margin: 0.2em 0;
+      }
+      .card {
+        padding: 1em;
+        font-size: 0.85em;
+      }
+      .search-bar input {
+        padding: 0.4em 1em;
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="wall.html" class="active">贡献墙</a>
+    <a href="firstweek.html">第一周</a>
+    <a href="secondweek.html">第二周</a>
+    <a href="thirdweek.html">第三周</a>
+    <a href="fourthweek.html">第四周</a>
+    <a href="fifthweek.html">第五周</a>
+    <a href="create.html">创造营</a>
+    <a href="https://haw559vl4g6.feishu.cn/share/base/form/shrcnv5J6pzwnldo4f83SKxMKke" class="feedback-btn" target="_blank">留言</a>
+    <img src="lingpal.jpg" alt="LingPal Logo" class="logo">
+  </nav>
+
+  <div class="container">
+    <div class="header">
+      <h1>大家的优秀表现</h1>
+      <div class="subtitle" id="subtitle">你们的力量，让项目更真实！</div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="输入姓名关键词进行搜索...">
+      </div>
+    </div>
+    <div class="grid" id="cardContainer"></div>
+  </div>
+
+  <script>
+    const messages = [
+  // 以下内容提取自《表扬.pdf》：学生表扬与家长建议
+  "🎓 冯梓珂同学多次提交任务，完成及时认真，积极思考AI问题，还额外完成了问卷分析和统计任务，表现非常优秀。",
+  "🎓 冉一诺同学作业完成积极及时，还对AI的回答提出了探究性的问题，是本周的亮点之一。",
+  "🎓 柯子同学在本周作业中表现积极，与豆包交流中展现出自己的思考，非常出色。",
+  "🎓 崔皓荃同学认真完成作业，与AI交流富有思考，受到了老师特别表扬。",
+  "🎓 米乐同学积极参与各项任务，并提出量化锻炼思维的建议，同时也是紧跟每周进度的优秀学员之一。",
+  "🎓 王思齐同学认真完成任务，并指出了AI语音表达、回答灵活性等方面的问题，表现出细致观察力和产品思维。",
+  "🎓 金富成、月亮、翟卿然、张妤琛、柯贤立、张宸熙同学均被点名表扬为完成任务及时、反馈深入的优秀学员。",
+  "🎓 赵俊添同学积极参与问卷调研，还参与产品讨论，多次在优秀学员中出现。",
+  "🎓 孙依程同学提交作业及时，并提出智能玩偶形态建议，显示出深度参与。",
+  "🎓 罗霁旸、王鹏睿同学被列入表现活跃、作业紧跟节奏的优秀学员名单。",
+  "🎓 陈霖蹊同学完成了调研任务，并被列入完成超额作业的优秀代表。",
+  "🎓 苑辛蔚、Neal、郭一绫、刘泽雨、李佳美同学多次被提及为紧跟任务、表现突出的积极参与者。",
+  "🎓 豆豆同学递交两份手稿，积极使用AI工具与爸爸合作制作，并尝试细化图像颜色表现，表现出极强的创造力。",
+  "🎓 叶田新成同学刚加入就完成调研任务，并亲自用问卷星制作调查问卷，显示出极强的主动性。",
+  "🎓 思成同学在问卷统计、活动参与中表现活跃，是积极参与的代表之一。",
+  "🎓 袁煜修同学在作业中选择重新手绘设计表达自己的想法，显示出独立思考与创意表达能力。",
+  "🎓 张明远、谢尧瑶、李彦亨同学在AI对话记录中表现出观察敏锐，能从语音识别、回答内容等角度提出改进建议。",
+  "🎓 孙阅曦、陶乐为、潘睿同学在AI互动中体现出良好的理解能力和表达能力，反馈内容生动详尽，获老师好评。",
+  "🎓 李文瑾同学提交了详实的AI问卷分析，并对卡鲁鲁的语音识别和交互设计提出个性化意见。",
+  "🎓 郝梓斐同学展现出极强想象力和创意，敢于独立构思并表达，是富有探索精神的孩子。",
+  "🎓 阳隆同学脑洞大开，提出魔法扫帚、百变包等配件，极具创意。",
+  "🎓 球球同学积极参与姓名贴个性化设计，作品富有细节与趣味。",
+  "🎓 段孟桓、袁林同学完成个性化设计任务，关注细节表达。",
+  "🎓 宋盈墨、梁米、乃馨、悠雅同学在服饰、DIY、装饰功能方面提出了创新性建议，体现独立构思。",
+  "🎓 王昱轩、潘睿同学提交作业完整，内容扎实，参与积极。",
+  "🎓 张善达、叶以清、宁宁、捏捏、李妍心、李成蹊、黄智灏、甘钰泽、吕俊毅、何梓源、杨琂溪同学全部在\"优秀作业名单\"中被明确点名表扬。",
+  "🎓 Cindy、李磊、施欣义、庞法澍、苏牧之、刘梓茗、普鑫桐、谷青洛、蔺梓轩、周显绘、孙若原、孙依程同学均为完成度高、参与深入的优秀代表。",
+  "🎓 田璧瑶同学能识别AI对话中的优劣并进行反馈，是具备逻辑分析力的学生。",
+  "🎓 余筱果同学反馈AI语言编排不顺畅，具备批判性审美。",
+  "🎓 一苇同学出现在优秀作业截图名单中，体现积极参与。",
+  
+  // 家长建议
+  "🧐 杨岚越家长深度参与每周任务，亲自陪伴孩子体验产品经理角色，积极鼓励孩子动手实践与表达。",
+  "🧐 张明远、谢尧瑶家长详细记录AI交互过程中的不足，对项目改进提供真实一手反馈。",
+  "🧐 李泯硕家长反馈AI语音识别、重启后重复介绍等问题，并建议卡鲁鲁增强持续记忆能力。",
+  "🧐 朱一伊家长建议图文结合的表达方式适配低年级孩子，强调可读性的重要性。",
+  "🧐 橙橙家长提出卡鲁鲁形象需统一、配色更饱和、避免\"盗版感\"，并尝试指导AI生成3D版本。",
+  "🧐 紫暮家长提供了手写统计法建议，协助项目在调查工具层面更贴近低龄使用者。",
+  "🧐 琪妈通过实际操作，辅助孩子完成AI交互分析，并积极与群内其他家长分享使用技巧。",
+  "🧐 徐晋家长通过孩子记录反馈表格，间接体现家庭在分析任务中的参与度。",
+  "🧐 梁米妈妈协助孩子记录好坏评价，是理性参与型家长代表。",
+  "🧐 冯梓珂家长希望同步产品讨论与修正进度，提倡让孩子深入理解智能体创建过程。",
+  "🧐 荟荟妈妈建议课程更加游戏化，指出当前文档整合方式对低龄家庭有操作负担。",
+  "🧐 Gina妈妈对操作工具有深入理解，主动在群内帮助他人，推动家长互助氛围。",
+  "🧐 仔仔（王梓淳）家长建议卡鲁鲁外观能定期更新，让孩子有升级期待。",
+  "🧐 汐汐妈妈建议课程任务提前发布，并降低作业复杂度，以适应低龄孩子的参与节奏。",
+  "🧐 兰海林家长反馈任务有趣，但孩子还无法辨别AI输出的真实性，建议加强引导。",
+  "🧐 Gina妈妈虽为工具小白，但积极交流反馈，为其他家长提供了有价值建议。",
+  "🧐 豌豆荚妈妈建议赋予孩子 \"职位头衔\" 以增强任务代入感，并提出线下发问卷的实践操作法。",
+  "🧐 月亮妈妈希望提交流程更清晰、提供更友好的视频指引，并主动帮助其他家长解决工具问题。",
+  "🧐 冉一诺家长建议作业内容可加入引导策略，提升拓展能力。",
+  "🧐 Emily Lai家长反馈作业提交操作太复杂，影响孩子兴趣，建议优化流程。",
+  "🧐 十二（叶田新成）家长表示真实项目学习能迁移学校所学，比刷题更有效，孩子非常有参与感。",
+  "🧐 郑明泽家长感谢老师倾听建议，认为作业流程越来越好，普通家长也能参与其中。",
+  "🧐 筱沅爸爸勇于跳出舒适圈，全程协助孩子、分享经验，是值得表扬的爸爸代表。"
+];
+
+    const subtitles = [
+      "你们的力量，让项目更真实！",
+      "每一份反馈，都是改变的种子",
+      "这不是表扬信，而是战报：你做的，真有用！",
+      "孩子们的声音，真的被听见了",
+      "你不是参与者，是推动者",
+      "共创，不只是口号",
+      "从参与到引领：你已是项目的一部分",
+      "你们的每一步，都是项目的转折点",
+      "这一切的改变，都有你的名字",
+      "不是观众，是共创者：这就是你的位置"
+    ];
+
+    let searchTerm = '';
+    let isSearching = false;
+
+    // 随机打乱数组
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // 过滤消息
+    function filterMessages(messages, searchTerm) {
+      if (!searchTerm) return messages;
+      return messages.filter(msg => msg.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
+
+    // 优化的渲染函数
+    function renderBatch() {
+      const container = document.getElementById('cardContainer');
+      
+      // 创建文档片段，减少DOM操作
+      const fragment = document.createDocumentFragment();
+      
+      // 过滤消息
+      const filteredMessages = filterMessages(messages, searchTerm);
+      
+      // 清空容器
+      requestAnimationFrame(() => {
+        container.innerHTML = '';
+        
+        if (filteredMessages.length === 0) {
+          const noResults = document.createElement('div');
+          noResults.style.gridColumn = '1 / -1';
+          noResults.style.textAlign = 'center';
+          noResults.style.padding = '2em';
+          noResults.style.color = '#666';
+          noResults.textContent = '没有找到相关内容';
+          container.appendChild(noResults);
+          return;
+        }
+
+        // 选择要显示的消息
+        const selectedMessages = filteredMessages.length <= 12 
+          ? shuffle([...filteredMessages])
+          : shuffle([...filteredMessages]).slice(0, 12);
+        
+        // 批量创建卡片
+        selectedMessages.forEach((message, index) => {
+          const card = document.createElement('div');
+          card.className = `card ${message.startsWith('🎓') ? 'student' : 'parent'}`;
+          card.style.animationDelay = `${index * 0.05}s`; // 减少延迟时间
+          card.textContent = message;
+          fragment.appendChild(card);
+        });
+
+        // 一次性添加所有卡片
+        container.appendChild(fragment);
+
+        // 如果不是搜索状态或搜索结果超过12条，继续轮播
+        if (!isSearching || filteredMessages.length > 12) {
+          const timeoutId = setTimeout(() => {
+            if (container.isConnected) { // 检查容器是否仍在DOM中
+              const cards = container.querySelectorAll('.card');
+              cards.forEach(card => {
+                card.classList.add('fadeOut');
+              });
+
+              setTimeout(() => {
+                if (container.isConnected) { // 再次检查
+                  renderBatch();
+                }
+              }, 500);
+            }
+          }, 3000);
+
+          // 存储timeout ID以便清理
+          container.dataset.timeoutId = timeoutId;
+        }
+      });
+    }
+
+    // 切换副标题
+    function rotateSubtitles() {
+      const subtitle = document.getElementById('subtitle');
+      let currentIndex = 0;
+      
+      function updateSubtitle() {
+        subtitle.classList.add('fade-out');
+        
+        setTimeout(() => {
+          currentIndex = (currentIndex + 1) % subtitles.length;
+          subtitle.textContent = subtitles[currentIndex];
+          subtitle.classList.remove('fade-out');
+          subtitle.classList.add('fade-in');
+          
+          setTimeout(() => {
+            subtitle.classList.remove('fade-in');
+          }, 500);
+        }, 500);
+      }
+
+      // 初始化第一个副标题
+      subtitle.textContent = subtitles[0];
+      
+      // 每4秒更新一次副标题
+      setInterval(updateSubtitle, 4000);
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchInput');
+      let searchTimeout;
+      
+      // 优化的搜索处理函数
+      const handleSearch = () => {
+        const newSearchTerm = searchInput.value.trim();
+        if (searchTerm === newSearchTerm) return; // 避免重复搜索
+        
+        searchTerm = newSearchTerm;
+        isSearching = searchTerm !== '';
+        
+        // 清除之前的timeout
+        const container = document.getElementById('cardContainer');
+        const previousTimeout = container.dataset.timeoutId;
+        if (previousTimeout) {
+          clearTimeout(previousTimeout);
+        }
+        
+        renderBatch();
+      };
+
+      // 添加搜索功能
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(handleSearch, 200); // 减少防抖时间
+      });
+
+      renderBatch();
+      rotateSubtitles();
+    });
+  </script>
+</body>
+</html>

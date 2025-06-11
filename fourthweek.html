@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第四周回顾</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+      background: #fffdf9;
+      color: #333;
+    }
+    nav {
+      background-color: #ffffffcc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      height: 60px;
+      top: 0;
+      z-index: 100;
+      gap: 0.7em;
+    }
+    nav .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      margin-left: 0.7em;
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      object-fit: contain;
+    }
+    nav .logo:hover {
+      transform: scale(1.1);
+    }
+    nav a {
+      text-decoration: none;
+      color: #666;
+      font-weight: bold;
+      border-radius: 12px;
+      padding: 0.5em 1em;
+      transition: background 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #ffe4ec;
+      color: #d6006b;
+    }
+    nav .feedback-btn {
+      background-color: #d6006b;
+      color: white;
+      padding: 0.5em 1.2em;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    nav .feedback-btn:hover {
+      background-color: #ff1481;
+      color: white;
+      transform: translateY(-2px);
+    }
+    @media (max-height: 700px) {
+      nav {
+        padding: 0.5em;
+      }
+      nav a {
+        padding: 0.3em 0.8em;
+        font-size: 0.9em;
+      }
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2em auto;
+      padding: 1em;
+    }
+    h1 {
+      color: #d6006b;
+      text-align: center;
+      margin-bottom: 0.5em;
+      font-size: 2.2em;
+    }
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, #ffd8ec, #d6006b);
+      margin: 1em auto;
+      border-radius: 2px;
+    }
+    .card-columns {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2em;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1em;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #d6006b;
+      font-size: 1.1em;
+    }
+    .card p {
+      font-size: 0.95em;
+      color: #333;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+    .card p.collapsed {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card .label {
+      font-weight: bold;
+      color: #d6006b;
+      display: block;
+      margin-top: 0.8em;
+    }
+    .card .label:first-child {
+      margin-top: 0;
+    }
+    .card button {
+      background: none;
+      border: none;
+      color: #d6006b;
+      cursor: pointer;
+      font-size: 0.9em;
+      padding: 0.5em 0;
+      margin-top: 0.5em;
+      display: none;
+      font-weight: bold;
+    }
+    .card button.show {
+      display: block;
+    }
+    .card button:hover {
+      text-decoration: underline;
+    }
+    .intro {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      line-height: 1.8;
+      color: #666;
+      font-size: 1.1em;
+      padding: 0 1em;
+    }
+    .intro p {
+      margin: 0.8em 0;
+      text-indent: 2em;
+    }
+    .logo {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 20px;
+      width: 100px;
+      height: 60px;
+      border-radius: 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="wall.html">贡献墙</a>
+    <a href="firstweek.html">第一周</a>
+    <a href="secondweek.html">第二周</a>
+    <a href="thirdweek.html">第三周</a>
+    <a href="fourthweek.html" class="active">第四周</a>
+    <a href="fifthweek.html">第五周</a>
+    <a href="create.html">创造营</a>
+    <a href="https://haw559vl4g6.feishu.cn/share/base/form/shrcnv5J6pzwnldo4f83SKxMKke" class="feedback-btn" target="_blank">留言</a>
+    <img src="lingpal.jpg" alt="LingPal Logo" class="logo">
+  </nav>
+
+  <div class="container">
+    <h1>第四周任务回顾</h1>
+    <div class="intro">
+      <p>在第四周，大家参与了卡鲁鲁AI对话玩偶的测试与验收工作。通过实际测试和体验，我们收集了大家对卡鲁鲁的优点和不足的反馈，这些宝贵的意见将帮助我们进一步完善产品。以下是大家的测试反馈，让我们一起来看看大家的发现吧！</p>
+    </div>
+    <div class="divider"></div>
+    <div class="card-columns">
+      <div class="card">
+        <h3>元元</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          能根据银河学院内容进行推理，回答符合书本描述，还能解答简单数学题。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          无法解答现实问题。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>孙阅曦</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答详尽完整、速度快且内容生动。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          知识面不够，基础问题没回答出来，英文内容不足。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>陶乐为</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答精准，能解除担忧。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          名字没写对且没纠正过来。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>潘睿</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答详细准确，有鼓励且故事有正能量。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          知识库不够全面，对某些问题回答不够理想。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>李文瑾</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          能详细介绍叔叔的样子并总结与自己的不同。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          语音识别对字形不同的情况分辨能力有待提升。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>崔皓荃</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答详细，对银河学院内容了解深入，会脑筋急转弯且能安慰情绪。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          对历史等知识了解不足，不了解最近发生的事。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>柯贤立</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          能感叹并拓展。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          对"讨厌"的回答不够准确，知识库提及略显突兀。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>冯梓珂</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          对情绪树洞陪伴引导作用好，能梳理银河学院内容，是学习上的好助手。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          百科类知识库不够，对历史等常识了解不多。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>李泯硕</h3>
+        <p>
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          基本能听懂问题且回答正确。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          语速稍慢。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>梁正</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答正确，能识别粤普，以小朋友开头有真实聊天感。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          答案中会出现虚构故事内容，对真实和虚构部分的区分不够明确。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>金福城</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          能从杂乱信息中抓取关键问题。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          回答不够细致、谨慎，对数学问题的解答方式不够贴合学生实际情况。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>张宸熙</h3>
+        <p>
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          语音识别不准确，对银河学院内容讲述笼统简单，对二年级数学知识了解不足。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>余筱果</h3>
+        <p>
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          顺口溜编得不太顺口。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>田璧瑶</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答完整且有称呼，能对问题做出猜测纠正。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          回答不够全面，语音输入需授权且语音播报功能暂不能用。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>黄与言</h3>
+        <p>
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          故事不够生动且短，回答整体感觉别扭。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>王思齐</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          对银河学院内容熟悉。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          回答语速慢，对名字发音不准确，回答不够灵活，对银河学院内容和常识了解不足，问题解决能力有待提升。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>李奕默</h3>
+        <p>
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          语音有时会缺少内容且有卡顿。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>阳隆</h3>
+        <p>
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          部分答案识别不准。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>涂腾</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          描述准确详细，对银河学院内容回复具体清晰，且有进步空间。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          对知识类问题回答不足。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>欣雅</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答欢快机灵、表达清晰且能给出好总结。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          说话吞吐，知识储备不足。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>南沐沐</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答详细准确快速，能让未看过银河学院的人了解柠檬博士。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          需涵盖更多知识内容，对有挑战性问题回答不足。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>冉一诺</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答全面、仔细且有重点，拥有理解科诺星语对话的能力。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          对科诺星语听不懂时处理不够自然，对某些知识不了解。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>宋盈墨</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答描述全面，能让用户想阅读银河学院。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          对知识储备不足。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>李鑫</h3>
+        <p>
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答准确且有逻辑，说话有趣。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          对游戏规则理解不够准确。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>柯子</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          描述生动，能理解并表达关系，能改正错误。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          对常见事物知识了解不足。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>胡沐菲</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          知道中国小朋友国歌，能学会数学题且了解伙伴关系。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          对知识掌握不够全面。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>杨若桐</h3>
+        <p>
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答能解决问题且有道理。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          表达不够连贯，需注意多音字。
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>徐晋</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答细致且对小朋友友好，能让用户记住知识。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          对一些常识知识了解不足。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>万序</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          会聊有趣话题，能推荐小游戏且会根据回答给予反馈。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          需改善语音对轻声的处理、连续提问的处理和提高语音回答速度。
+        </p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>于一</h3>
+        <p class="collapsed">
+          <span class="label">卡鲁鲁大模型的优点：</span>
+          回答正确且详细，对银河学院事情了解。
+          <span class="label">卡鲁鲁大模型的不足：</span>
+          对百科、历史、自然知识了解不足。
+        </p>
+        <button>查看全部</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.card').forEach(card => {
+        const p = card.querySelector('p');
+        const button = card.querySelector('button');
+        
+        // 只有当p和button都存在时才进行处理
+        if (p && button) {
+          const content = p.innerHTML.trim();
+          if (content.length > 100) { // 如果内容超过100个字符就显示按钮
+            button.classList.add('show');
+          }
+
+          button.addEventListener('click', () => {
+            if (p.classList.contains('collapsed')) {
+              p.classList.remove('collapsed');
+              button.textContent = '收起';
+            } else {
+              p.classList.add('collapsed');
+              button.textContent = '查看全部';
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html> 

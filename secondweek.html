@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第二周回顾</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+      background: #fffdf9;
+      color: #333;
+    }
+    nav {
+      background-color: #ffffffcc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      height: 60px;
+      top: 0;
+      z-index: 100;
+      gap: 0.7em;
+    }
+    nav .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      margin-left: 0.7em;
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      object-fit: contain;
+    }
+    nav .logo:hover {
+      transform: scale(1.1);
+    }
+    nav a {
+      text-decoration: none;
+      color: #666;
+      font-weight: bold;
+      border-radius: 12px;
+      padding: 0.5em 1em;
+      transition: background 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #ffe4ec;
+      color: #d6006b;
+    }
+    nav .feedback-btn {
+      background-color: #d6006b;
+      color: white;
+      padding: 0.5em 1.2em;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    nav .feedback-btn:hover {
+      background-color: #ff1481;
+      color: white;
+      transform: translateY(-2px);
+    }
+    @media (max-height: 700px) {
+      nav {
+        padding: 0.5em;
+      }
+      nav a {
+        padding: 0.3em 0.8em;
+        font-size: 0.9em;
+      }
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2em auto;
+      padding: 1em;
+      text-align: center;
+    }
+    h1 {
+      color: #d6006b;
+      text-align: center;
+      margin-bottom: 0.5em;
+      font-size: 2.2em;
+    }
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, #ffd8ec, #d6006b);
+      margin: 1em auto;
+      border-radius: 2px;
+    }
+    .intro {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      line-height: 1.8;
+      color: #666;
+      font-size: 1.1em;
+      padding: 0 1em;
+    }
+    .intro p {
+      margin: 0.8em 0;
+      text-indent: 2em;
+    }
+    .masonry {
+      display: flex;
+      gap: 1em;
+      margin: 0 auto;
+    }
+    .column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+    .item {
+      break-inside: avoid;
+      margin-bottom: 1em;
+    }
+    .item img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .item img:hover {
+      transform: scale(1.02);
+    }
+    figcaption {
+      margin-top: 0.5em;
+      text-align: center;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .logo {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 20px;
+      width: 100px;
+      height: 60px;
+      border-radius: 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="wall.html">贡献墙</a>
+    <a href="firstweek.html">第一周</a>
+    <a href="secondweek.html" class="active">第二周</a>
+    <a href="thirdweek.html">第三周</a>
+    <a href="fourthweek.html">第四周</a>
+    <a href="fifthweek.html">第五周</a>
+    <a href="create.html">创造营</a>
+    <a href="https://haw559vl4g6.feishu.cn/share/base/form/shrcnv5J6pzwnldo4f83SKxMKke" class="feedback-btn" target="_blank">留言</a>
+    <img src="lingpal.jpg" alt="LingPal Logo" class="logo">
+  </nav>
+
+  <div class="container">
+    <h1>第二周任务回顾</h1>
+    <div class="intro">
+      <p>在第二周，大家参与了卡鲁鲁AI对话玩偶的功能规划与外观设计。通过创意设计的形式，我们收集了大家对卡鲁鲁的外观、功能和交互方式的想象，这些灵感将帮助我们设计出更有趣的AI玩偶。以下是大家的创意作品，让我们一起来欣赏这些精彩的设计吧！</p>
+    </div>
+    <div class="divider"></div>
+    <div class="masonry">
+      <div class="column"></div>
+      <div class="column"></div>
+      <div class="column"></div>
+      <div class="column"></div>
+    </div>
+  </div>
+
+  <script>
+    // 创建图片数组
+    const images = Array.from({length: 38}, (_, i) => {
+      const num = i + 1;
+      // 检查文件是否为PNG格式
+      const isPng = [3, 9, 16, 22, 24, 25, 29, 34, 38].includes(num);
+      return {
+        src: `secondweek_images/week2-photo-${num}${isPng ? '.png' : '.jpeg'}`,
+        alt: `图${num}`
+      };
+    });
+
+    // 获取所有列
+    const columns = document.querySelectorAll('.column');
+    
+    // 平均分配图片到四列中
+    function distributeImages() {
+      // 清空所有列
+      columns.forEach(column => column.innerHTML = '');
+      
+      // 计算每列应该有多少张图片
+      const imagesPerColumn = Math.ceil(images.length / columns.length);
+      
+      // 分配图片到每一列
+      images.forEach((image, index) => {
+        const columnIndex = Math.floor(index / imagesPerColumn);
+        if (columnIndex < columns.length) {
+          // 创建图片容器
+          const item = document.createElement('div');
+          item.className = 'item';
+          
+          // 创建图片元素
+          const img = document.createElement('img');
+          img.src = image.src;
+          img.alt = image.alt;
+          
+          // 将图片添加到容器中
+          item.appendChild(img);
+          
+          // 将容器添加到对应的列中
+          columns[columnIndex].appendChild(item);
+        }
+      });
+    }
+
+    // 等待所有图片加载完成后再分配
+    let loadedImages = 0;
+    images.forEach(image => {
+      const img = new Image();
+      img.onload = () => {
+        loadedImages++;
+        if (loadedImages === images.length) {
+          distributeImages();
+        }
+      };
+      img.src = image.src;
+    });
+
+    // 窗口大小改变时重新分配
+    let timeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(distributeImages, 100);
+    });
+  </script>
+</body>
+</html>

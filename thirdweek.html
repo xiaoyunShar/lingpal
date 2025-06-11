@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第三周回顾</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+      background: #fffdf9;
+      color: #333;
+    }
+    nav {
+      background-color: #ffffffcc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      height: 60px;
+      top: 0;
+      z-index: 100;
+      gap: 0.7em;
+    }
+    nav .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      margin-left: 0.7em;
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      object-fit: contain;
+    }
+    nav .logo:hover {
+      transform: scale(1.1);
+    }
+    nav a {
+      text-decoration: none;
+      color: #666;
+      font-weight: bold;
+      border-radius: 12px;
+      padding: 0.5em 1em;
+      transition: background 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #ffe4ec;
+      color: #d6006b;
+    }
+    nav .feedback-btn {
+      background-color: #d6006b;
+      color: white;
+      padding: 0.5em 1.2em;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    nav .feedback-btn:hover {
+      background-color: #ff1481;
+      color: white;
+      transform: translateY(-2px);
+    }
+    @media (max-height: 700px) {
+      nav {
+        padding: 0.5em;
+      }
+      nav a {
+        padding: 0.3em 0.8em;
+        font-size: 0.9em;
+      }
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2em auto;
+      padding: 1em;
+    }
+    h1 {
+      color: #d6006b;
+      text-align: center;
+      margin-bottom: 0.5em;
+      font-size: 2.2em;
+    }
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, #ffd8ec, #d6006b);
+      margin: 1em auto;
+      border-radius: 2px;
+    }
+    .intro {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      line-height: 1.8;
+      color: #666;
+      font-size: 1.1em;
+      padding: 0 1em;
+    }
+    .intro p {
+      margin: 0.8em 0;
+      text-indent: 2em;
+    }
+    .card-columns {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2em;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1em;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #d6006b;
+      font-size: 1.1em;
+    }
+    .card p {
+      font-size: 0.95em;
+      color: #333;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+      line-height: 1.5;
+    }
+    .card p.collapsed {
+      max-height: 4.5em; /* 显示3行 */
+    }
+    .card p.collapsed::after {
+      content: "...";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #fff;
+      padding-left: 4px;
+    }
+    .card button {
+      background: none;
+      border: none;
+      color: #d6006b;
+      cursor: pointer;
+      font-size: 0.9em;
+      padding: 0.5em 0;
+      margin-top: 0.5em;
+      display: none;
+    }
+    .card button.show {
+      display: block;
+    }
+    .logo {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 20px;
+      width: 100px;
+      height: 60px;
+      border-radius: 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="wall.html">贡献墙</a>
+    <a href="firstweek.html">第一周</a>
+    <a href="secondweek.html">第二周</a>
+    <a href="thirdweek.html" class="active">第三周</a>
+    <a href="fourthweek.html">第四周</a>
+    <a href="fifthweek.html">第五周</a>
+    <a href="create.html">创造营</a>
+    <a href="https://haw559vl4g6.feishu.cn/share/base/form/shrcnv5J6pzwnldo4f83SKxMKke" class="feedback-btn" target="_blank">留言</a>
+    <img src="lingpal.jpg" alt="LingPal Logo" class="logo">
+  </nav>
+
+  <div class="container">
+    <h1>第三周任务回顾</h1>
+    <div class="intro">
+      <p>在第三周，大家参与了卡鲁鲁AI对话玩偶的语料库整理和智能体互动体验。通过实际对话和互动，我们收集了大家的体验反馈和改进建议，这些意见将帮助我们优化卡鲁鲁的对话能力。以下是大家的体验心得，让我们一起来看看大家的发现吧！</p>
+    </div>
+    <div class="divider"></div>
+    <div class="card-columns">
+      <div class="card">
+        <h3>金富城（有有）</h3>
+        <p class="collapsed">我和 DeepSeek、豆包、Kimi、元宝这4个大模型智能体聊了天。我的感受是：豆包和 DeepSeek 显得更人性化，他们会站在用户的角度分析问题，先探究"为什么提出这个问题""用户真正的需求是什么"，再具体分析，并延伸出潜在问题，最后总结回应、鼓励用户，还能带来情绪价值。而 Kimi 和元宝的回答则比较机械。我还发现，豆包功能特别多，比如会在文字答案后附上相关小视频，这样看起来不会枯燥。豆包还可以生成音乐和图片，例如我让它做一段关于贝多芬的音乐，它就真的做出来了，特别棒！相比之下，DeepSeek 虽然不能直接生成作品，但在互动上非常智能、有温度，就像一个有感情的人。我特地用不同语气提问同一个问题，发现 DeepSeek 会根据语气给出更细致、富有情感的回应。它还会夸奖我问题问得好，举例类比帮我理解，让我感觉被重视，甚至觉得自己是个爱提问的探索者，特别温暖。我还发现，和 AI 聊天时，把自己的想法表达得越清楚，得到的反馈就越贴合；同时，不同 AI 各有优劣，可以结合它们的长处，打造出属于我自己的风格。</p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>球球</h3>
+        <p class="collapsed">我和3个大模型智能体聊了天，感觉他们超级聪明，几秒钟就能回答，比人类还快。和他们聊天真的很棒，我想知道的问题他们几乎都能解答。我发现，他们的思考速度和表达能力都远超人类！</p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>马侨研</h3>
+        <p class="collapsed">我和豆包聊了天，感觉它反应很快，回答全面，内容丰富，还有拓展指引，而且可以互动。我发现，使用 AI 时，表达清楚自己的需求很重要，发出的指令要明确，越具体越好。</p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>赵心然</h3>
+        <p class="collapsed">我和5个大模型的智能体聊了天，感觉就像动画片里的角色突然"活"了，他们仿佛真实存在。我发现，对于动画片中的已有情节，他们很熟悉，但当问题超出动画设定时，他们就常常答非所问，缺乏深入思考。</p>
+        <button>查看全部</button>
+      </div>
+
+      <div class="card">
+        <h3>翟卿然</h3>
+        <p>我和豆包聊了天，它的内容很详细，会拓展，而且回答速度也挺快。我最喜欢豆包。</p>
+      </div>
+
+      <div class="card">
+        <h3>孙若原</h3>
+        <p>我和豆包聊了天，觉得它和我说话特别快，也很礼貌，但有时候答非所问。</p>
+      </div>
+
+      <div class="card">
+        <h3>乃馨</h3>
+        <p>我和豆包聊了天，觉得它很聪明，能接着我的话说，还懂得举例。</p>
+      </div>
+
+      <div class="card">
+        <h3>陈霖蹊</h3>
+        <p>我和多个AI聊了天，我觉得豆包回答快，内容专业，但Kimi更像"真人"，会开玩笑。</p>
+      </div>
+
+      <div class="card">
+        <h3>潘睿</h3>
+        <p>我喜欢豆包，因为它回答我关于银河学院的内容很快，而且有点"幽默"。</p>
+      </div>
+
+      <div class="card">
+        <h3>郝梓斐</h3>
+        <p>我和几个AI聊了天，有的很无聊，有的讲太多，我更喜欢简短但有趣的回答。</p>
+      </div>
+
+      <div class="card">
+        <h3>王昱轩</h3>
+        <p>我试了几个智能体，豆包能懂我说的意思，还会鼓励我继续追问。</p>
+      </div>
+
+      <div class="card">
+        <h3>刘梓茗</h3>
+        <p>我觉得 AI 不太像真人，说话有点不自然，但有些内容还是有帮助的。</p>
+      </div>
+
+      <div class="card">
+        <h3>李妍心</h3>
+        <p>我觉得豆包比 Kimi 说得更清楚，也更快，更像一个懂我的同学。</p>
+      </div>
+
+      <div class="card">
+        <h3>田璧瑶</h3>
+        <p>我和 AI 聊了天，感觉它们像百科全书，但不太会变通。回答死板。</p>
+      </div>
+
+      <div class="card">
+        <h3>米宝</h3>
+        <p>豆包反应快，说话温柔，我问了很多银河学院的细节问题，它都答上来了。</p>
+      </div>
+
+      <div class="card">
+        <h3>月亮Luna</h3>
+        <p>豆包的语气让我感觉在和一个懂我的朋友聊天，我喜欢这种感觉。</p>
+      </div>
+
+      <div class="card">
+        <h3>张妤琛</h3>
+        <p>我和几个AI聊了，它们回答速度不一样，有的能理解上下文，有的不能。</p>
+      </div>
+
+      <div class="card">
+        <h3>周显绘</h3>
+        <p>豆包会接着我的问题继续讲，还会拓展话题，我很喜欢它的风格。</p>
+      </div>
+
+      <div class="card">
+        <h3>李彦亨</h3>
+        <p>我觉得AI有时候挺笨的，答非所问，但有时候又能说出我没想到的内容。</p>
+      </div>
+
+      <div class="card">
+        <h3>蔺梓轩</h3>
+        <p>我发现不同的AI会有不同的性格，有的像大哥哥，有的像机器人。</p>
+      </div>
+
+      <div class="card">
+        <h3>柯贤立</h3>
+        <p>豆包比Kimi更适合小朋友，它用词简单，我能听懂，还能继续问。</p>
+      </div>
+
+      <div class="card">
+        <h3>谷青洛</h3>
+        <p>我跟豆包聊天感觉像在和一个老师对话，它讲得很详细，但有点严肃。</p>
+      </div>
+
+      <div class="card">
+        <h3>刘泽雨</h3>
+        <p>豆包回答又快又清晰，我问了很多银河的问题，它都知道。</p>
+      </div>
+
+      <div class="card">
+        <h3>苏牧之</h3>
+        <p>我觉得AI很厉害，但它说话有时候太正经，我希望它能幽默点。</p>
+      </div>
+
+      <div class="card">
+        <h3>张宸熙</h3>
+        <p>AI回答问题的方式像书本，但我更喜欢像同学那样交流。</p>
+      </div>
+
+      <div class="card">
+        <h3>周子寅</h3>
+        <p>AI讲得挺多的，有些能拓展内容，有些就简单回答。</p>
+      </div>
+
+      <div class="card">
+        <h3>黄智灏</h3>
+        <p>豆包像个"图书管理员"，我问什么它都能回答，但很少反问我。</p>
+      </div>
+
+      <div class="card">
+        <h3>李泯硕</h3>
+        <p>我觉得AI能理解我说的内容很厉害，但还做不到像人一样自然。</p>
+      </div>
+
+      <div class="card">
+        <h3>李成蹊</h3>
+        <p>豆包有时会重复内容，但它很有耐心，一直在回答我问题。</p>
+      </div>
+
+      <div class="card">
+        <h3>吕俊毅</h3>
+        <p>我觉得AI会听话但不懂我说的玩笑，它不太像朋友。</p>
+      </div>
+
+      <div class="card">
+        <h3>张善达</h3>
+        <p>AI说话太快，有时候我还没理解它就说完了，得慢慢看。</p>
+      </div>
+
+      <div class="card">
+        <h3>孙阅曦</h3>
+        <p>豆包能记得我前面说的话，还能延续对话，这点我很喜欢。</p>
+      </div>
+
+      <div class="card">
+        <h3>潘睿</h3>
+        <p>豆包用的词我能懂，讲得也不枯燥，像在讲故事。</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.card').forEach(card => {
+      const p = card.querySelector('p');
+      const button = card.querySelector('button');
+      
+      // 检查文本是否需要展开按钮
+      if (p.scrollHeight > p.offsetHeight) {
+        button.classList.add('show');
+      }
+
+      button.addEventListener('click', () => {
+        if (p.classList.contains('collapsed')) {
+          p.classList.remove('collapsed');
+          button.textContent = '收起';
+        } else {
+          p.classList.add('collapsed');
+          button.textContent = '查看全部';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

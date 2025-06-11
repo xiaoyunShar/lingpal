@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第五周回顾</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+      background: #fffdf9;
+      color: #333;
+    }
+    nav {
+      background-color: #ffffffcc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      height: 60px;
+      top: 0;
+      z-index: 100;
+      gap: 0.7em;
+    }
+    nav .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      margin-left: 0.7em;
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      object-fit: contain;
+    }
+    nav .logo:hover {
+      transform: scale(1.1);
+    }
+    nav a {
+      text-decoration: none;
+      color: #666;
+      font-weight: bold;
+      border-radius: 12px;
+      padding: 0.5em 1em;
+      transition: background 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #ffe4ec;
+      color: #d6006b;
+    }
+    nav .feedback-btn {
+      background-color: #d6006b;
+      color: white;
+      padding: 0.5em 1.2em;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    nav .feedback-btn:hover {
+      background-color: #ff1481;
+      color: white;
+      transform: translateY(-2px);
+    }
+    @media (max-height: 700px) {
+      nav {
+        padding: 0.5em;
+      }
+      nav a {
+        padding: 0.3em 0.8em;
+        font-size: 0.9em;
+      }
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2em auto;
+      padding: 1em;
+    }
+    h1 {
+      color: #d6006b;
+      text-align: center;
+      margin-bottom: 0.5em;
+      font-size: 2.2em;
+    }
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, #ffd8ec, #d6006b);
+      margin: 1em auto;
+      border-radius: 2px;
+    }
+    .content {
+      display: flex;
+      gap: 2em;
+      margin: 2em auto;
+      align-items: stretch;
+      min-height: 600px;
+    }
+    .image-section {
+      flex: 7;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      min-height: 400px;
+      position: relative;
+    }
+    .image-section::before {
+      content: "加载中...";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #d6006b;
+      font-size: 1.2em;
+      z-index: 1;
+    }
+    .image-section img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+    .image-section img:not([src]), 
+    .image-section img[src=""], 
+    .image-section img.error {
+      opacity: 0;
+    }
+    .image-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+    }
+    .image-section:hover img {
+      transform: scale(1.02);
+    }
+    .comments-section {
+      flex: 3;
+      padding: 1.5em;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .comments-wrapper {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.5em;
+    }
+    .comments-wrapper::-webkit-scrollbar {
+      width: 6px;
+    }
+    .comments-wrapper::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+    .comments-wrapper::-webkit-scrollbar-thumb {
+      background: #ffd8ec;
+      border-radius: 3px;
+    }
+    .comments-wrapper::-webkit-scrollbar-thumb:hover {
+      background: #d6006b;
+    }
+    .comment {
+      background: #f8f9fa;
+      padding: 1em;
+      margin-bottom: 1em;
+      border-radius: 12px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    .comment:hover {
+      background: #fff0f5;
+      transform: translateY(-2px);
+    }
+    .comment-author {
+      color: #d6006b;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+    }
+    .comment p {
+      margin: 0;
+      line-height: 1.6;
+      color: #555;
+    }
+    @media (max-width: 1200px) {
+      .container {
+        padding: 0.5em;
+      }
+      .content {
+        flex-direction: column;
+        min-height: auto;
+      }
+      .image-section,
+      .comments-section {
+        width: 100%;
+      }
+      .comments-section {
+        height: 500px;
+      }
+    }
+    .intro {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      line-height: 1.8;
+      color: #666;
+      font-size: 1.1em;
+      padding: 0 1em;
+    }
+    .intro p {
+      margin: 0.8em 0;
+      text-indent: 2em;
+    }
+    .logo {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 20px;
+      width: 100px;
+      height: 100px;
+      border-radius: 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="wall.html">贡献墙</a>
+    <a href="firstweek.html">第一周</a>
+    <a href="secondweek.html">第二周</a>
+    <a href="thirdweek.html">第三周</a>
+    <a href="fourthweek.html">第四周</a>
+    <a href="fifthweek.html" class="active">第五周</a>
+    <a href="create.html">创造营</a>
+    <a href="https://haw559vl4g6.feishu.cn/share/base/form/shrcnv5J6pzwnldo4f83SKxMKke" class="feedback-btn" target="_blank">留言</a>
+    <img src="lingpal.jpg" alt="LingPal Logo" class="logo">
+  </nav>
+
+  <div class="container">
+    <h1>第五周任务回顾</h1>
+    <div class="intro">
+      <p>在第五周，大家参与了工厂探秘与选品挑战活动。通过实地参观和选品体验，我们深入了解了玩偶生产的全过程，并探讨了如何选择最适合的材料和工艺。以下是大家的闯关感言，让我们一起来看看大家的心得吧！</p>
+    </div>
+    <div class="divider"></div>
+    <div class="content">
+      <div class="image-section">
+        <img src="images/fifthweek_survey.png" alt="第五周问卷统计" onerror="this.classList.add('error'); this.parentElement.setAttribute('data-error', '图片加载失败')">
+      </div>
+      <div class="comments-section">
+        <div class="comments-wrapper">
+          <div class="comment">
+            <div class="comment-author">庞景琦</div>
+            <p>我想做一个能跟我玩耍同时有超强表达能力的卡鲁鲁，材料是金属外表，有翅膀的小老虎，因为老虎不仅可爱而且威武，我希望我的卡鲁鲁能做我的好朋友。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">靳国浩</div>
+            <p>挺开心的</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">刘泽雨</div>
+            <p>开心</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">乃馨</div>
+            <p>我选的大部分和专业经理的选择一致，非常开心，非常期待！</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">杨露葳</div>
+            <p>希望可以按照我的选择来</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">南沐沐</div>
+            <p>学到了不少玩偶外观工艺设计的知识很棒</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">金富城（有有）</div>
+            <p>原来生产一件产品要考虑的细节太多了，每一步都是产品项目经理要进过仔细的思考，考虑顾客的需求，考虑成本，考虑工厂的协调，还要考虑生产的时间，等等。真的是很不容易，各个部门都要协调好。每一个步骤出错就会影响下一步的工作进行，所以这个是每个人的认真负责也是一个团队的相互协作，才能生产出产品面向消费者。我的妈妈就是做服装研发设计和生产的，我觉得妈妈很不容易。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">周琬佳</div>
+            <p>我认为很有难度，要考虑许多因素。我学会了从多种角度选择一个答案。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">普鑫桐</div>
+            <p>我发现有关毛戎玩具的知识很多</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">张宸熙</div>
+            <p>我在闯关的过程中学到了毛绒玩偶各个制作环节，选品时候需要考虑的各方面因素，学到了以前不知道的很多知识，很开心</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">周姗珏</div>
+            <p>原来一个毛绒玩偶有这么多的讲究！这些材料的确对玩偶的形象塑造有着极其重要的作用。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">Eno</div>
+            <p>我闯完关了，我开心，我知道了各种关于卡鲁鲁如何设计的事情</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">刘恩朵</div>
+            <p>喜欢</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">董欣杨</div>
+            <p>非常开心，认识了很多不同材料，了解了如何使用它们。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">王鹏睿</div>
+            <p>好玩</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">杨琂溪</div>
+            <p>希望最后的成品能和我们设计的一样。要给一个说明书，哪个按键做什么用。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">杨弘宇</div>
+            <p>我希望卡鲁鲁脚掌和肚子的颜色选择黄色系</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">林明佳</div>
+            <p>将表格填写完后，我很自豪，我正在创造一个产品</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">一苇</div>
+            <p>原来做一个产品还这么麻烦，不过专业产品经理的建议我还是猜中了好几个</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">林明佳</div>
+            <p>闯关后我很兴奋，我离创造出卡鲁鲁又近了一步，上个星期我自己创造了一个UU智能体，我很开心</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">曹立汀</div>
+            <p>要结合多方位角度展开全面思考，并将自己代入顾客身份，才能将产品做好</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">Amber褚</div>
+            <p>希望卡鲁鲁快点出生！</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">邓泽鑫</div>
+            <p>感觉学习成果很多，了解了产品经理的过程</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">袁煜修</div>
+            <p>我觉得挺好玩的，也有点不好玩，嘿嘿</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">逯锴文</div>
+            <p>学习到了怎么选毛绒玩具的制作材料。还学习到了什么是织唛。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">月亮</div>
+            <p>我发现很多毛都非常漂亮！参与活动很开心</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">曹立汀</div>
+            <p>要结合实际多方面考虑，并将自己代入客户身份，才能设计出一个优秀的产品</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">张善达</div>
+            <p>可以做到分辨出毛的质感，颜色，要安装发声器等，还有电线连接。It fun！</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">朱熹芮</div>
+            <p>当我做到了这次的挑战，我觉得我对卡鲁鲁的创造又更上了一层阶梯</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">邢陈</div>
+            <p>原来还有这么多我没怎么见过的材料拥有非常优秀的特质。我常见的物品使用的材料不一定是最好的，它可能只是相对来说最适合的。我觉得以后要多留意生活中的细节，说不定能发现很多惊喜。多动脑，深入思考各种事务间的关联。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">徐亦芃</div>
+            <p>卡鲁鲁玩偶很有趣</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">柯子</div>
+            <p>我期待卡鲁鲁以后能陪我好好学习，它学习到了知识我也学习到了知识，它更会帮助我提醒我。我希望它毛茸茸的，摸起来很有弹性。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">爱爱</div>
+            <p>我认为在选择材料和工艺时应该慎重考虑，比如那种毛料摸起来更舒适同时具备美观。因为外观往往是用户挑选商品的决定因素之一。我也发现选材并非简简单单，要考虑的因素也不止美观，也要考虑成本和实用性。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">贾烨玮</div>
+            <p>太开心了，学到了很多。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">冉一诺</div>
+            <p>想给卡鲁鲁做一件衣服作为识别标志。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">梁米</div>
+            <p>我觉得这次学习很圆满，学到了很丰富的知识，我以前还不知道有这么多分类呢！</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">范思妙</div>
+            <p>我完成了闯关后，虽然卡鲁鲁玩偶没有完成，但是我脑里已经在想象卡鲁鲁的样子了，同时我也获得了许多对产品制造的经验，以便我的未来。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">桃子</div>
+            <p>我喜欢选择题，感觉非常好👍。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">李磊</div>
+            <p>学到很多东西，成本和效果的平衡。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">郭一绫</div>
+            <p>让我更好地了解了制作玩偶要考虑到的东西，很全面</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">吴轶元</div>
+            <p>非常开心</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">郭芳亦</div>
+            <p>我觉得是你闯关之后觉得特别的开心，我觉得设计卡路里的一个毛绒玩具还是比较不错的</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">雷雨晴</div>
+            <p>开心</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">林默雷</div>
+            <p>全部和后面的答案一样</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">康若楠</div>
+            <p>还有自主创新性，尊重每个人的选择，选项可以在多元些</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">吕俊毅</div>
+            <p>我发现一个毛绒玩具也要考虑这么多的东西！我还学到了好多知识！在选布料，选颜色的等时候也要把大局观放进去考虑。原来卡鲁鲁的外观设计就这么复杂！期待卡鲁鲁快点上市！</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">乐乐</div>
+            <p>基本和产品经理的建议吻合，感觉比较符合产品经理的角色</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">康若楠</div>
+            <p>非常好</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">周蓬</div>
+            <p>很有成就感，学习到了关于很多做毛绒玩偶时的方法和经验</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">周显绘</div>
+            <p>几乎和推荐选项一样，体验感很好</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">元元</div>
+            <p>我觉得下次如果要选玩偶的话，我可以先看看它的整体是长什么样的，然后再细细的观察一下，看看它的标签呀，还有它的细节以及眼睛是什么，眼睛还有它内部的构造，外部的构造，它由什么颜色构成，我喜不喜欢他，然后再开始订购玩偶，这样子订购出来的玩偶既是我喜欢的细节又丰富，这是实习我，我觉得很不错</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">郭中名</div>
+            <p>非常开心，收获了很多。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">廖望通</div>
+            <p>学习到了怎样给毛绒玩偶合理的搭配颜色、标签还有毛绒的类型。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">廖思铭</div>
+            <p>我收获到了当一个产品经理是多么的不容易，要考虑许多制作方面的工作,祝卡鲁鲁顺利完成！</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">何筱沅</div>
+            <p>认真完成了收获到了一点。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">丁煜城</div>
+            <p>我学习到了许多制造工艺</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">赵朴真</div>
+            <p>很开心，感觉学到了很多知识</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">杨衷意</div>
+            <p>学习到了如何选品。对于毛绒玩具的质感、布料选择等都有了一定的了解</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">陈如翰</div>
+            <p>我成功通关后，我觉得很开心！我还知道了卡鲁鲁的外形特征，每个地方使用的材料和使用的电路系统。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">Frey</div>
+            <p>我收获到了毛绒玩具还可以说话，我长大以后也要设计更可爱的我喜欢的毛绒玩具造型</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">孙泽睿</div>
+            <p>做一个玩偶不容易，要考虑很多东西，要有很多材料，要花很多功劳（孩子的意思是工序）</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">刘晟泽</div>
+            <p>我很开心。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">史千墨</div>
+            <p>在胜利闯关的心情是比较有成就感，那做出来之后，我感觉就是比较的嗯，开心愉悦吧。收获是嗯，我了解了怎样制作毛绒玩具，我感觉我收获我的收获还挺大的。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">金嘉志</div>
+            <p>了解了玩偶生产的过程，觉得玩偶虽然看上去简单，但是过程很严谨，跟数学差不多 ：0）</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">谭付悠雅</div>
+            <p>我挺喜欢这种工厂探秘和选品的，很有趣，也可以学到好多东西，如果能实地参观就好了。不过选择的过程中也有两个地方有点纠结，比如最后那个标签我原本倾向于第三个选项，可是看到设计图，还挺喜欢的，结合实际成本，还是选了和产品经理一致的。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">徐晋</div>
+            <p>有时自己的选择可能不和专业产品经理一样，看来从自己的角度选择往往不是最准确的。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">甘钰泽</div>
+            <p>非常开心，学会了如何为产品选择毛料和工艺</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">Neal</div>
+            <p>我很期待(*ˆoˆ*)产品。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">淇淇</div>
+            <p>很开心，能够和产品经理一起思考卡鲁鲁的设计。希望卡鲁鲁越来越好。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">涂腾</div>
+            <p>很开心，很期待，学习了毛绒玩具和机芯的一些知识，增长了见识。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">小北</div>
+            <p>我学到了怎样评估各种材料对产品售卖的影响，要充分考虑从外观材质到内部机芯的生产时间、工厂的备货情况。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">C</div>
+            <p>POP MART最近两年爆火的IPLABUBU有了毛绒系列，全球拉迷的疯狂真是让人叹为观止。同样是毛绒玩具，凭什么这款就如此出圈，我和小雨这周末也到最近的POP MART去感受了一下。单从本周任务的角度我们做了如下分析：
+1、外观：有点坏又有点萌，LABUBU 不像传统的毛绒玩具走"完美路线"，拒绝流水线式的 "假乖"，更像 "身边爱吐槽却暖心的朋友"，契合 "叛逆但柔软" 的精神特质。以前的毛绒玩具感觉是十岁以下女孩子的专利，其它人要是带着或被认为"幼稚可笑"，但是LABUBU打破了这个魔咒，让更多的群体都可以拥有。同时他结合了东西方的审美，又打破了地域的限制。
+这种"可爱中带点古怪、天真中藏着狡黠"的气质，与传统甜美可爱的形象形成鲜明对比，精准击中了追求个性、厌恶同质化的年轻群体。
+2、配色：马卡龙/低饱和度色系—— LABABA 系列常采用柔和的马卡龙色系或低饱和度色调（如粉蓝、粉紫、鹅黄、奶白等）。这些颜色不仅符合其可爱治愈的定位，更传递出一种清新、温柔、高级的质感，避免了传统毛绒玩具可能带来的"幼稚"或"廉价"感，更容易被追求时尚的成年人接受。
+3、面料： POP MART 在品控上相对较好，LABABA 通常选用手感柔软、细腻、不易掉毛的优质短绒或特殊绒面面料。触感良好，增加了第一印象的好感，而且因为配色持续喜爱度。舒适的手感强化了其"治愈"和"陪伴"的属性。
+4、"改娃"新玩法：Labubu采用液态搪胶工艺制作面部特征，显著提升了产品的质感和表情表现力，这种新工艺会提升成本和生产周期，但是也可以让毛绒玩具升级为"潮流玩伴"，现在小红书、抖音和微博上改娃视频火爆，而且有人通过改娃可以收入不菲。</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">青青</div>
+            <p>1.生产一个这个玩偶（不包括机芯）成本是多少？机芯成本多少？
+2. 机芯有多大，需要wifi联网吗？
+3. 机芯和玩偶这是两个厂家吗？最后组装是玩偶厂家将另一个机芯厂家生产的机芯进行组装？
+4. 为什么有的玩偶设计有拉链有的没有？
+5. 生产过程需要几天？如果我想生产自己设计的产品，我怎么知道有哪些厂家适合生产我的产品？
+6 标号1-999，有什么具体的意义？
+7. 整个制作过程哪部分是人工，哪部分是机器做的？8. 最后生产好的玩偶，谁来检查产品质量？</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">马景宣</div>
+            <p>挺有代入感的</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">马景宣</div>
+            <p>挺简单的</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">糖豆</div>
+            <p>我会挑选合格的毛绒玩具了，很开心</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">李牧唐</div>
+            <p>我意识到了一个小毛绒玩具竟然有这么多部分需要考虑 以及成本的重要性 对我很有帮助 谢谢</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">麦冬</div>
+            <p>无</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">骆瑾霆</div>
+            <p>感觉很惊喜</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">王乐坤</div>
+            <p>参考的总不是我想的</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">郑琪昕</div>
+            <p>我闯完关特别开心</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">王思齐</div>
+            <p>很激动，期待卡鲁鲁早点制造出来。
+通过学习我知道了产品经理的基本工作</p>
+          </div>
+          <div class="comment">
+            <div class="comment-author">何梓源</div>
+            <p>很想快点看到会说话的卡鲁鲁玩偶</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

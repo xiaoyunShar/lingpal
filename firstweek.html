@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第一周回顾</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+      background: #fffdf9;
+      color: #333;
+    }
+    nav {
+      background-color: #ffffffcc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: sticky;
+      height: 60px;
+      top: 0;
+      z-index: 100;
+      gap: 0.7em;
+    }
+    nav .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      margin-left: 0.7em;
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      object-fit: contain;
+    }
+    nav .logo:hover {
+      transform: scale(1.1);
+    }
+    nav a {
+      text-decoration: none;
+      color: #666;
+      font-weight: bold;
+      border-radius: 12px;
+      padding: 0.5em 1em;
+      transition: background 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #ffe4ec;
+      color: #d6006b;
+    }
+    nav .feedback-btn {
+      background-color: #d6006b;
+      color: white;
+      padding: 0.5em 1.2em;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    nav .feedback-btn:hover {
+      background-color: #ff1481;
+      color: white;
+      transform: translateY(-2px);
+    }
+    @media (max-height: 700px) {
+      nav {
+        padding: 0.5em;
+      }
+      nav a {
+        padding: 0.3em 0.8em;
+        font-size: 0.9em;
+      }
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2em auto;
+      padding: 1em;
+      text-align: center;
+    }
+    h1 {
+      color: #d6006b;
+      text-align: center;
+      margin-bottom: 0.5em;
+      font-size: 2.2em;
+    }
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, #ffd8ec, #d6006b);
+      margin: 1em auto;
+      border-radius: 2px;
+    }
+    .intro {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      line-height: 1.8;
+      color: #666;
+      font-size: 1.1em;
+      padding: 0 1em;
+    }
+    .intro p {
+      margin: 0.8em 0;
+      text-indent: 2em;
+    }
+    .content {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .content p {
+      line-height: 1.6;
+      color: #555;
+      margin: 0.8em 0;
+    }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.5em;
+      margin: 2em auto;
+      padding: 1em;
+      align-items: flex-start;
+      max-width: 1600px;
+    }
+    .image-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .image-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+    }
+    .image-card.survey {
+      width: 20%;
+      min-width: 250px;
+    }
+    .image-card.result {
+      width: 80%;
+      min-width: 700px;
+    }
+    .image-wrapper {
+      flex: 1;
+      position: relative;
+      width: 100%;
+    }
+    .image-card.survey .image-wrapper {
+      aspect-ratio: 3/4;
+    }
+    .image-card.survey img {
+      height: 100%;
+      object-fit: cover;
+    }
+    .image-card.result img {
+      height: auto;
+      object-fit: contain;
+    }
+    .image-card img {
+      width: 100%;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .image-card:hover img {
+      transform: scale(1.02);
+    }
+    .image-caption {
+      padding: 1em;
+      background: white;
+      color: #666;
+      font-size: 0.95em;
+      border-top: 1px solid #f0f0f0;
+    }
+    @media (max-width: 1200px) {
+      .container {
+        padding: 0.5em;
+      }
+      .image-container {
+        flex-direction: column;
+        padding: 0.5em;
+      }
+      .image-card.survey,
+      .image-card.result {
+        width: 100%;
+        min-width: unset !important;
+      }
+      .image-card.survey .image-wrapper {
+        aspect-ratio: auto;
+      }
+      .image-card.survey img {
+        height: auto;
+      }
+    }
+    .logo {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 20px;
+      width: 100px;
+      height: 60px;
+      border-radius: 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="wall.html">贡献墙</a>
+    <a href="firstweek.html" class="active">第一周</a>
+    <a href="secondweek.html">第二周</a>
+    <a href="thirdweek.html">第三周</a>
+    <a href="fourthweek.html">第四周</a>
+    <a href="fifthweek.html">第五周</a>
+    <a href="create.html">创造营</a>
+    <a href="https://haw559vl4g6.feishu.cn/share/base/form/shrcnv5J6pzwnldo4f83SKxMKke" class="feedback-btn" target="_blank">留言</a>
+    <img src="lingpal.jpg" alt="LingPal Logo" class="logo">
+  </nav>
+
+  <div class="container">
+    <h1>第一周任务回顾</h1>
+    <div class="intro">
+      <p>在第一周，大家参与了卡鲁鲁AI对话玩偶的问卷调研。通过问卷调研的形式，我们收集了大家对卡鲁鲁的期待和建议，这些宝贵的意见将帮助我们打造一个更好的AI伙伴。以下是调研的结果统计，让我们一起来看看大家的想法吧！</p>
+    </div>
+    <div class="divider"></div>
+    <div class="content">
+      <div class="image-container">
+        <div class="image-card survey">
+          <div class="image-wrapper">
+            <img src="firstweek_survey.png" alt="问卷示意" loading="lazy">
+          </div>
+          <div class="image-caption">问卷设计展示</div>
+        </div>
+        <div class="image-card result">
+          <div class="image-wrapper">
+            <img src="firstweek_result.png" alt="问卷结果分析图表" loading="lazy">
+          </div>
+          <div class="image-caption">问卷结果分析</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
